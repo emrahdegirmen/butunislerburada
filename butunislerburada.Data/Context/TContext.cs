@@ -17,17 +17,6 @@ namespace butunislerburada.Data.Context
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
-        public DbSet<Admin> Admin { get; set; }
-
-        public DbSet<Singer> Singer { get; set; }
-        public DbSet<Lyrics> Lyrics { get; set; }
-        public DbSet<ErrorLog> ErrorLog { get; set; }
-        public DbSet<BadLinkLog> BadLinkLog { get; set; }
-
-        public DbSet<Contact> Contact { get; set; }
-        public DbSet<Blog> Blog { get; set; }
-        public DbSet<RecentTransaction> RecentTransaction { get; set; }
-
-        public DbSet<Setting> Setting { get; set; }
+        public DbSet<Job> Job { get; set; }
     }
 }

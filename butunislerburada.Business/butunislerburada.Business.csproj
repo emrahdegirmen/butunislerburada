@@ -66,7 +66,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SarkiSozleri.Data\butunislerburada.Data.csproj">
+    <ProjectReference Include="..\butunislerburada.Data\butunislerburada.Data.csproj">
       <Project>{9ce2f30c-868c-4dda-ab98-b1b240760ed2}</Project>
       <Name>butunislerburada.Data</Name>
     </ProjectReference>

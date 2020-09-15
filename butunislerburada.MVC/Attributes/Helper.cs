@@ -19,37 +19,6 @@ namespace butunislerburada.MVC.Helper
 {
     public class Helper
     {
-
-        public static void saveRecentTransaction(string Name, int DataTypeID, int DataID, int SaveTypeID)
-        {
-            GenericUnitOfWork unitOfWork = new GenericUnitOfWork();
-
-            RecentTransaction recentTransaction = new RecentTransaction();
-
-            recentTransaction.Name = Name;
-            recentTransaction.DataID = DataID;
-            recentTransaction.DataTypeID = DataTypeID;
-            recentTransaction.SaveTypeID = SaveTypeID;
-            recentTransaction.CreatedDate = DateTime.Now;
-            recentTransaction.UserID = Convert.ToInt32(HttpContext.Current.Request.Cookies["UserLogin"]["UserID"]);
-
-            unitOfWork.Repository<RecentTransaction>().Insert(recentTransaction);
-            unitOfWork.SaveChanges();
-
-            var List = unitOfWork.Repository<RecentTransaction>().GetList(x => x.DataTypeID == DataTypeID);
-
-            var recentTransactionList = List.ToPagedList(1, 20);
-            var recentTransactionListDelete = List.ToPagedList(2, 20);
-            if (recentTransactionListDelete != null && recentTransactionListDelete.Count > 0)
-            {
-                foreach (var item in recentTransactionListDelete)
-                {
-                    unitOfWork.Repository<RecentTransaction>().Delete(item.ID);
-                    unitOfWork.SaveChanges();
-                }
-            }
-        }
-
         public static string editCharacter(string source)
         {
             string returnValue = clearHtml(source);
@@ -178,28 +147,6 @@ namespace butunislerburada.MVC.Helper
 
             return returnValue;
         }
-
-        //public static void MailSender(string body)
-        //{
-        //    var fromAddress = new MailAddress("mailadresiniz@gmail.com");
-        //    var toAddress = new MailAddress("mailadresiniz@gmail.com");
-        //    const string subject = "Site Adı | Sitenizden Gelen İletişim Formu";
-        //    using (var smtp = new SmtpClient
-        //    {
-        //        Host = "smtp.gmail.com",
-        //        Port = 587,
-        //        EnableSsl = true,
-        //        DeliveryMethod = SmtpDeliveryMethod.Network,
-        //        UseDefaultCredentials = false,
-        //        Credentials = new NetworkCredential(fromAddress.Address, "Mail_Sifresi")
-        //    })
-        //    {
-        //        using (var message = new MailMessage(fromAddress, toAddress) { Subject = subject, Body = body })
-        //        {
-        //            smtp.Send(message);
-        //        }
-        //    }
-        //}
 
 
         public static string mailSender(string mailTitle, string mailBody)

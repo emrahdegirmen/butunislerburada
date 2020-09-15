@@ -61,16 +61,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\TContext.cs" />
-    <Compile Include="Entity\Setting.cs" />
-    <Compile Include="Entity\RecentTransaction.cs" />
-    <Compile Include="Entity\Blog.cs" />
-    <Compile Include="Entity\Contact.cs" />
-    <Compile Include="Entity\Admin.cs" />
     <Compile Include="Entity\BaseEntity.cs" />
-    <Compile Include="Entity\BadLinkLog.cs" />
-    <Compile Include="Entity\ErrorLog.cs" />
-    <Compile Include="Entity\Singer.cs" />
-    <Compile Include="Entity\Lyrics.cs" />
+    <Compile Include="Entity\City.cs" />
+    <Compile Include="Entity\Company.cs" />
+    <Compile Include="Entity\Category.cs" />
+    <Compile Include="Entity\Job.cs" />
     <Compile Include="Enum\DataTypeName.cs" />
     <Compile Include="Enum\SaveUpdateStatus.cs" />
     <Compile Include="Enum\SingerBotStatus.cs" />
