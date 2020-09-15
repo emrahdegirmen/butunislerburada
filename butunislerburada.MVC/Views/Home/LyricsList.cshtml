@@ -1,0 +1,57 @@
+﻿@using PagedList.Mvc
+
+@model butunislerburada.Data.Model.DataModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="hero-section breadCrumbArea gradient-overlay">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-12">
+                <div class="page-header-content text-white text-center pt-sm-5 pt-md-5 pt-lg-0">
+                    <h1 class="pageTitle text-white mb-4">Şarkı Sözleri</h1>
+                    <div class="custom-breadcrumb">
+                        <ol class="breadcrumb d-inline-block bg-transparent list-inline py-0">
+                            <li class="list-inline-item breadcrumb-item"><a href="@Url.Action("Index", "Home")">Ana Sayfa</a></li>
+                            <li class="list-inline-item breadcrumb-item active">Şarkı Sözleri</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="services-section ptb-100 gray-light-bg indexLyrics">
+    <div class="container">
+        <div class="row">
+
+            @if (Model.LyricsPaged != null && Model.LyricsPaged.Count() > 0)
+            {
+                foreach (var item in Model.LyricsPaged)
+                {
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="services-single text-center p-5 my-md-3 my-lg-3 my-sm-0 shadow-sm white-bg rounded">
+                            <span class="ti-headphone-alt icon-lg color-secondary d-block mb-4"></span>
+                            <a href="/@item.LyricsLink-sarki-sozu" class="detail-link">
+                                <strong>@item.Singer.Name</strong>
+                                <p class="mb-0 justify-content-between align-items-center">
+                                    @item.Name.Replace(item.Singer.Name + " - ", "")
+                                    Şarkı Sözü <span class="ti-arrow-right"></span>
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+
+        @Html.PagedListPager(Model.LyricsPaged, sayfa => Url.Action("", "sarki-sozleri", new { sayfa = sayfa }), new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded })
+
+    </div>
+</section>
+

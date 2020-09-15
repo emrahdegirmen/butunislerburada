@@ -1,0 +1,182 @@
+﻿@using butunislerburada.Data.Enum
+
+@model butunislerburada.Data.Model.DataModel
+
+<div class="navbar-custom-menu">
+    <ul class="nav navbar-nav">
+
+        <li><a href="/" target="_blank"><i class="fa fa-home"></i></a></li>
+
+        <li class="dropdown messages-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-envelope-o"></i>
+                <span class="label label-success">@Model.Contacts.Count</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header">Okunmamış @Model.Contacts.Count Mesaj</li>
+                <li>
+                    <ul class="menu">
+
+                        @if (Model.Contacts != null && Model.Contacts.Count() > 0)
+                        {
+                            foreach (var item in Model.Contacts)
+                            {
+                                <li>
+                                    <a href="@Url.Action("List","Contact")">
+                                        <div class="pull-left sidebarHeaderIcon"><i class="fa fa-envelope"></i></div>
+                                        <h4>
+                                            @item.NameSurname
+                                            <small><i class="fa fa-clock-o"></i> @item.CreatedDate</small>
+                                        </h4>
+                                        <p>@item.Subject</p>
+                                    </a>
+                                </li>
+                            }
+                        }
+
+                    </ul>
+                </li>
+                <li class="footer"><a href="@Url.Action("List","Contact")">Tüm Mesajları Gör</a></li>
+            </ul>
+        </li>
+        <li class="dropdown messages-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-bell-o"></i>
+                <span class="label label-warning">@Model.RecentTransactions.Count</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header">Son @Model.RecentTransactions.Count İşlem</li>
+                <li>
+                    <ul class="menu">
+                        @if (Model.RecentTransactions != null && Model.RecentTransactions.Count() > 0)
+                        {
+                            foreach (var item in Model.RecentTransactions)
+                            {
+                                <li>
+                                    <a href="#">
+
+                                        @{
+                                            var IconName = "bell-o text-gray";
+
+                                            if (item.DataTypeID == 1)
+                                            {
+                                                IconName = "user text-aqua";
+                                            }
+                                            else if (item.DataTypeID == 2)
+                                            {
+                                                IconName = "headphones text-yellow";
+                                            }
+                                            else if (item.DataTypeID == 3)
+                                            {
+                                                IconName = "bookmark text-green";
+                                            }
+                                        }
+
+                                        <div class="pull-left sidebarHeaderIcon"><i class="fa fa-@IconName"></i></div>
+                                        <h4>
+                                            @DataTypeNameValue.StatusValueName(item.DataTypeID) @Html.Raw(item.SaveTypeID == 1 ? "Eklendi" : "Düzenlendi")
+                                            <small><i class="fa fa-clock-o"></i> @item.CreatedDate</small>
+                                        </h4>
+                                        <p>@item.Name</p>
+                                    </a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </li>
+                <li class="footer"><a href="@Url.Action("List","RecentTransaction")">Tüm İşlemler</a></li>
+            </ul>
+        </li>
+        @*<li class="dropdown tasks-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-flag-o"></i>
+                <span class="label label-danger">9</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header">You have 9 tasks</li>
+                <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                        <li>
+                            <!-- Task item -->
+                            <a href="#">
+                                <h3>
+                                    Design some buttons
+                                    <small class="pull-right">20%</small>
+                                </h3>
+                                <div class="progress xs">
+                                    <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                        <span class="sr-only">20% Complete</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li><!-- end task item -->
+                        <li>
+                            <!-- Task item -->
+                            <a href="#">
+                                <h3>
+                                    Create a nice theme
+                                    <small class="pull-right">40%</small>
+                                </h3>
+                                <div class="progress xs">
+                                    <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                        <span class="sr-only">40% Complete</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li><!-- end task item -->
+                        <li>
+                            <!-- Task item -->
+                            <a href="#">
+                                <h3>
+                                    Some task I need to do
+                                    <small class="pull-right">60%</small>
+                                </h3>
+                                <div class="progress xs">
+                                    <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                        <span class="sr-only">60% Complete</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li><!-- end task item -->
+                        <li>
+                            <!-- Task item -->
+                            <a href="#">
+                                <h3>
+                                    Make beautiful transitions
+                                    <small class="pull-right">80%</small>
+                                </h3>
+                                <div class="progress xs">
+                                    <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                        <span class="sr-only">80% Complete</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li><!-- end task item -->
+                    </ul>
+                </li>
+                <li class="footer">
+                    <a href="#">View all tasks</a>
+                </li>
+            </ul>
+        </li>*@
+        <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-user"></i>
+                <span class="hidden-xs">
+                    @if (Request.Cookies["UserLogin"] != null)
+                    {
+                        @Server.UrlDecode(Request.Cookies["UserLogin"]["UserName"].ToString())
+                    }
+                </span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="user-footer">
+                    <div class="pull-left"><a href="@Url.Action("List","AdminSetting")" class="btn btn-default btn-flat">Yönetici İşlemleri</a></div>
+                    <div class="pull-right"><a href="@Url.Action("Add","Setting")" class="btn btn-default btn-flat">Genel Ayarlar</a></div>
+                </li>
+            </ul>
+        </li>
+        <li><a href="@Url.Action("Logout","Login")"><i class="fa fa-sign-out"></i></a></li>
+    </ul>
+</div>

@@ -1,0 +1,169 @@
+﻿@model butunislerburada.Data.Model.DataModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.Singer != null)
+{
+    <section class="hero-section breadCrumbArea gradient-overlay">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 col-lg-12">
+                    <div class="page-header-content text-white text-center pt-sm-5 pt-md-5 pt-lg-0">
+                        <h1 class="pageTitle text-white mb-4">@Model.Singer.Name Şarkı Sözleri</h1>
+                        <div class="custom-breadcrumb">
+                            <ol class="breadcrumb d-inline-block bg-transparent list-inline py-0">
+                                <li class="list-inline-item breadcrumb-item"><a href="@Url.Action("Index", "Home")">Ana Sayfa</a></li>
+                                <li class="list-inline-item breadcrumb-item active">@Model.Singer.Name Şarkı Sözleri</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="services-section ptb-100 gray-light-bg indexLyrics">
+        <div class="container">
+            <div class="row">
+
+                @if (Model.IndexLyrics != null && Model.IndexLyrics.Count() > 0)
+                {
+                    foreach (var item in Model.IndexLyrics)
+                    {
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="services-single text-center p-5 my-md-3 my-lg-3 my-sm-0 shadow-sm white-bg rounded">
+                                <span class="ti-headphone-alt icon-lg color-secondary d-block mb-4"></span>
+                                <a href="/@item.LyricsLink-sarki-sozu" class="detail-link">
+                                    <strong>@item.Singer.Name</strong>
+                                    <p class="mb-0 justify-content-between align-items-center">
+                                        @item.Name.Replace(item.Singer.Name + " - ", "")
+                                        Şarkı Sözü <span class="ti-arrow-right"></span>
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </section>
+
+
+    <section class="about-us-section ptb-100 indexMiddleLyrics">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="about-us-content-wrap">
+                        <strong class="color-secondary">Diğer @Model.Singer.Name Şarkı Sözleri</strong>
+                        <span class="animate-border mb-4"></span>
+                        <ul class="list-unstyled tech-feature-list">
+
+                            @if (Model.LastAddedLyrics != null && Model.LastAddedLyrics.Count() > 0)
+                            {
+                                foreach (var item in Model.LastAddedLyrics)
+                                {
+                                    <li class="py-1">
+                                        <a href="/@item.LyricsLink-sarki-sozu"><span class="ti-control-forward mr-2 color-secondary"></span><strong>@item.Name</strong></a>
+                                    </li>
+                                }
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="about-us-content-wrap">
+                        <strong class="color-secondary">Son Eklenen Şarkı Sözleri</strong>
+                        <span class="animate-border mb-4"></span>
+                        <ul class="list-unstyled tech-feature-list">
+
+                            @if (Model.PopularLyrics != null && Model.PopularLyrics.Count() > 0)
+                            {
+                                foreach (var item in Model.PopularLyrics)
+                                {
+                                    <li class="py-1">
+                                        <a href="/@item.LyricsLink-sarki-sozu"><span class="ti-control-forward mr-2 color-secondary"></span><strong>@item.Name</strong></a>
+                                    </li>
+                                }
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="about-us-content-wrap">
+                        <strong class="color-secondary">Popüler Şarkı Sözleri</strong>
+                        <span class="animate-border mb-4"></span>
+                        <ul class="list-unstyled tech-feature-list">
+
+                            @if (Model.Last10Lyrics != null && Model.Last10Lyrics.Count() > 0)
+                            {
+                                foreach (var item in Model.Last10Lyrics)
+                                {
+                                    <li class="py-1">
+                                        <a href="/@item.LyricsLink-sarki-sozu"><span class="ti-control-forward mr-2 color-secondary"></span><strong>@item.Name</strong></a>
+                                    </li>
+                                }
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <section class="hero-section breadCrumbArea gradient-overlay">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 col-lg-12">
+                    <div class="page-header-content text-white text-center pt-sm-5 pt-md-5 pt-lg-0">
+                        <h1 class="pageTitle text-white mb-4">@Model.PageTitle Şarkı Sözleri</h1>
+                        <div class="custom-breadcrumb">
+                            <ol class="breadcrumb d-inline-block bg-transparent list-inline py-0">
+                                <li class="list-inline-item breadcrumb-item"><a href="@Url.Action("Index", "Home")">Ana Sayfa</a></li>
+                                <li class="list-inline-item breadcrumb-item active">@Model.PageTitle Şarkı Sözleri</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="services-section ptb-100 gray-light-bg indexLyrics">
+        <div class="container">
+            <div class="row">
+
+                @if (Model.Lyricses != null && Model.Lyricses.Count() > 0)
+                {
+                    foreach (var item in Model.Lyricses.Take(20).OrderByDescending(x => Guid.NewGuid()))
+                    {
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="services-single text-center my-md-3 my-lg-3 my-sm-0 shadow-sm white-bg rounded">
+                                <span class="ti-headphone-alt icon-lg color-secondary d-block mb-4"></span>
+                                <a href="/@item.LyricsLink-sarki-sozu" class="detail-link">
+                                    <strong>@item.Singer.Name</strong>
+                                    <p class="mb-0 justify-content-between align-items-center">@item.Name.Replace(item.Singer.Name + " - ", "")
+                                    Şarkı Sözü <span class="ti-arrow-right"></span></p>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </section>
+}
