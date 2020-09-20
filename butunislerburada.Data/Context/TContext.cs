@@ -18,5 +18,12 @@ namespace butunislerburada.Data.Context
         }
 
         public DbSet<Job> Job { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<Company> Company { get; set; }
+        public DbSet<JobCity> JobCity { get; set; }
+        public DbSet<City> City { get; set; }
+        public DbSet<District> District { get; set; }
+        public DbSet<Gender> Gender { get; set; }
+        public DbSet<WorkingWay> WorkingWay { get; set; }
     }
 }

@@ -433,6 +433,7 @@
     <Compile Include="Attributes\FileHelper.cs" />
     <Compile Include="Attributes\Helper.cs" />
     <Compile Include="Attributes\LoginSetting.cs" />
+    <Compile Include="Controllers\ElemanOnlineController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

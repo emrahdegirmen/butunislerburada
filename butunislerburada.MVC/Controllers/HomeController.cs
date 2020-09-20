@@ -24,45 +24,49 @@ namespace butunislerburada.MVC.Controllers
 
         public ActionResult Index(int sayfa = 1)
         {
-            DataModel model = new DataModel();
 
-            string query = "";
-
-            if (sayfa > 1)
-            {
-                query = "?sy=" + sayfa;
-            }
-
-            Uri uri = new Uri("https://www.elemanonline.com.tr/is_ilanlari.php" + query);
-            WebClient client = new WebClient();
-            var htmlData = client.DownloadData(uri);
-            var html = Encoding.UTF8.GetString(htmlData);
-
-            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
-            doc.LoadHtml(html);
+            return RedirectToAction("Index", "ElemanOnline");
 
 
-            var IsContinue = true;
+            //DataModel model = new DataModel();
 
-            HtmlNodeCollection dataList = doc.DocumentNode.SelectNodes("//h4");
-            if (dataList != null)
-            {
-                foreach (var item in dataList)
-                {
-                    string link = item.SelectSingleNode(".//a").Attributes["href"].Value;
-                    string title = item.SelectSingleNode(".//a").Attributes["title"].Value;
+            //string query = "";
 
-                    IsContinue = SaveJob(link, 1, title, sayfa);
-                }
+            //if (sayfa > 1)
+            //{
+            //    query = "?sy=" + sayfa;
+            //}
 
-                if (IsContinue)
-                {
-                    int page = sayfa + 1;
-                    Response.Redirect("?sayfa=" + page);
-                }
-            }
+            //Uri uri = new Uri("https://www.elemanonline.com.tr/is_ilanlari.php" + query);
+            //WebClient client = new WebClient();
+            //var htmlData = client.DownloadData(uri);
+            //var html = Encoding.UTF8.GetString(htmlData);
 
-            return View(model);
+            //HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+            //doc.LoadHtml(html);
+
+
+            //var IsContinue = true;
+
+            //HtmlNodeCollection dataList = doc.DocumentNode.SelectNodes("//h4");
+            //if (dataList != null)
+            //{
+            //    foreach (var item in dataList)
+            //    {
+            //        string link = item.SelectSingleNode(".//a").Attributes["href"].Value;
+            //        string title = item.SelectSingleNode(".//a").Attributes["title"].Value;
+
+            //        IsContinue = SaveJob(link, 1, title, sayfa);
+            //    }
+
+            //    if (IsContinue)
+            //    {
+            //        int page = sayfa + 1;
+            //        Response.Redirect("?sayfa=" + page);
+            //    }
+            //}
+
+            //return View(model);
         }
 
         public bool SaveJob(string url, int categoryID, string jobTitle, int page)
@@ -71,7 +75,7 @@ namespace butunislerburada.MVC.Controllers
 
             try
             {
-                var data = unitOfWork.Repository<Job>().FirstOrDefault(x => x.BotUrl == url);
+                var data = unitOfWork.Repository<Job>().FirstOrDefault(x => x.BotLink == url);
                 if (data == null)
                 {
                     Uri uri = new Uri(url);
@@ -86,8 +90,8 @@ namespace butunislerburada.MVC.Controllers
                     Job job = new Job();
                     job.CategoryID = categoryID;
                     job.Name = jobTitle;
-                    job.BotUrl = url;
-                    job.Link = "https://www.elemanonline.com.tr/is_ilanlari.php?sy=" + page;
+                    job.BotLink = url;
+                    job.BotPageLink = "https://www.elemanonline.com.tr/is_ilanlari.php?sy=" + page;
 
                     //string htmlCompany = doc.DocumentNode.SelectSingleNode("//h6[@class='mb-5']").InnerHtml.Trim();
                     //if (htmlCompany != null)
@@ -118,9 +122,8 @@ namespace butunislerburada.MVC.Controllers
                     string htmlText = doc.DocumentNode.SelectSingleNode("//div[@id='ilan_metni']").InnerHtml.Trim();
                     if (htmlText != null)
                     {
-                        job.Text = htmlText;
+                        job.Detail = htmlText;
                     }
-
 
                     if (returnValue)
                     {

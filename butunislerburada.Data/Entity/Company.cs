@@ -6,6 +6,7 @@ namespace butunislerburada.Data.Entity
     {
         public string Name { get; set; }
         public string Link { get; set; }
+        public string BotLink { get; set; }
         public DateTime CreatedDate { get; set; }
         public int StatusID { get; set; }
     }

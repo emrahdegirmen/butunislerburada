@@ -62,6 +62,10 @@
   <ItemGroup>
     <Compile Include="Context\TContext.cs" />
     <Compile Include="Entity\BaseEntity.cs" />
+    <Compile Include="Entity\JobCity.cs" />
+    <Compile Include="Entity\Gender.cs" />
+    <Compile Include="Entity\WorkingWay.cs" />
+    <Compile Include="Entity\District.cs" />
     <Compile Include="Entity\City.cs" />
     <Compile Include="Entity\Company.cs" />
     <Compile Include="Entity\Category.cs" />
